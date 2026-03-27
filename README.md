@@ -6,9 +6,7 @@
 
 Esta skill soporta **múltiples herramientas** para adaptarse a tus necesidades:
 
-### Firecrawl (Recomendado - Primario)
-
-API de scraping con modo `/interact` para interacción avanzada.
+### Firecrawl (Recomendado)
 
 **Instalación (elegí tu gestor):**
 
@@ -28,25 +26,11 @@ pnpm add -g firecrawl-cli
 firecrawl --version
 ```
 
-**Uso:**
-```bash
-npx firecrawl https://ejemplo.com
-npx firecrawl interact https://ejemplo.com  # Para interacción
-```
-
 **Incluye:**
 - Extracción de HTML y CSS
 - Descubrimiento de assets/imágenes
 - Renderizado de JavaScript
 - Modo interactivo para clicks/scrolls
-
-### Browserbase (Opcional - Avanzado)
-
-Browser cloud para screenshots reales y automatización completa.
-
-- Browser real en la nube
-- Screenshots a cualquier viewport
-- Interacción JS completa (clicks, scrolls, hovers)
 
 **Web:** https://www.browserbase.com/
 
