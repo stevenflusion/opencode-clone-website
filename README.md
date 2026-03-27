@@ -21,7 +21,7 @@ Gracias a **JCodesMore** por compartir su template y demostrar cómo la IA puede
 ```batch
 git clone https://github.com/stevenflusion/opencode-clone-website.git
 cd opencode-clone-website
-install.bat
+.\install.bat
 ```
 
 ### macOS / Linux
@@ -37,7 +37,7 @@ chmod +x install.sh
 
 Una vez instalada la skill `clone-website`, simplemente describí lo que necesitás:
 
-- `"Clone este sitio: https://github.com/stevenflusion/opencode-clone-website.git"`
+- `"Clone este sitio: https://ejemplo.com"`
 - `"Quiero hacer un clone de esta página"`
 - `"Reverse-engineer esta web"`
 
