@@ -10,9 +10,22 @@ Esta skill soporta **múltiples herramientas** para adaptarse a tus necesidades:
 
 API de scraping con modo `/interact` para interacción avanzada.
 
-**Instalación:**
+**Instalación (elegí tu gestor):**
+
 ```bash
+# npm
 npm install -g firecrawl-cli
+
+# bun
+bun add -g firecrawl-cli
+
+# pnpm
+pnpm add -g firecrawl-cli
+```
+
+**Verificar instalación:**
+```bash
+firecrawl --version
 ```
 
 **Uso:**
@@ -87,7 +100,7 @@ Una vez instalada, simplemente describí lo que necesitás:
 | Requisito | Descripción |
 |-----------|-------------|
 | OpenCode | Instalado y configurado |
-| Firecrawl (recomendado) | `npm install -g firecrawl-cli` |
+| Firecrawl CLI | `npm install -g firecrawl-cli` (o bun/pnpm) |
 | Node.js | 20+ para proyectos Next.js |
 | Proyecto base | Next.js + shadcn/ui + Tailwind v4 |
 
