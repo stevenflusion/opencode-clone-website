@@ -4,24 +4,62 @@
 
 ## 🛠 Herramientas de Extracción
 
-Esta skill soporta **múltiples herramientas** para adaptarse a tus necesidades:
+Esta skill soporta **múltiples herramientas** en orden de prioridad:
 
-### Firecrawl (Recomendado)
+### 1. WebFetch (Gratis - Incluido)
 
-**Instalación (elegí tu gestor):**
+La herramienta integrada de OpenCode — funciona sin instalar nada.
 
+- ✅ Funciona inmediatamente
+- ⚠️ Solo HTML estático (sin JS)
+- Mejor para: Extraction básica, siempre disponible
+
+**Uso:**
+```
+Usa webfetch en OpenCode para obtener el HTML de la página
+```
+
+### 2. Simplerasp.io (Gratis - Sin auth)
+
+Scraper web gratuito con buen free tier.
+
+- ✅ Sin autenticación para uso básico
+- ✅ Bueno para páginas estáticas
+
+**Web:** https://simplescraper.io/
+
+### 3. Apify (Free tier)
+
+Tiene scrapers de texto gratuitos.
+
+- ✅ Free tier disponible
+- ⚠️ Requiere cuenta de Apify
+
+### 4. Firecrawl (Mejor calidad - Requiere API key)
+
+La mejor herramienta de extracción pero requiere autenticación.
+
+**Instalación:**
 ```bash
 # npm
 npm install -g firecrawl-cli
-
 # bun
 bun add -g firecrawl-cli
-
 # pnpm
 pnpm add -g firecrawl-cli
 ```
 
-**Verificar instalación:**
+**Configuración:**
+```bash
+# Opción 1: Login interactivo
+npx firecrawl login
+
+# Opción 2: Configurar API key
+npx firecrawl config set-api-key TU_API_KEY
+# Obtén tu free key en: https://firecrawl.dev
+```
+
+**Verificar:**
 ```bash
 firecrawl --version
 ```
@@ -32,11 +70,24 @@ firecrawl --version
 - Renderizado de JavaScript
 - Modo interactivo para clicks/scrolls
 
+### 5. Browserbase (Avanzado - Paid)
+
+Para screenshots y automatización completa de browser.
+
+- ✅ Browser real, screenshots, JS completo
+- ⚠️ Requiere cuenta y pago
+
 **Web:** https://www.browserbase.com/
 
-### Fallback: WebFetch
+---
 
-Si no tenés herramientas externas, usá el `webfetch` de OpenCode para obtener HTML básico.
+## IMPORTANTE: Antes de clonar
+
+Si tenés API key de Firecrawl → Configurala para mejores resultados
+
+Si no tenés → La skill usa WebFetch automáticamente (funciona, pero es más básico)
+
+**No esperes** — la skill comienza con lo que tiene disponible.
 
 ---
 
@@ -84,9 +135,11 @@ Una vez instalada, simplemente describí lo que necesitás:
 | Requisito | Descripción |
 |-----------|-------------|
 | OpenCode | Instalado y configurado |
-| Firecrawl CLI | `npm install -g firecrawl-cli` (o bun/pnpm) |
+| Firecrawl CLI (opcional) | `npm install -g firecrawl-cli` para mejor extracción |
 | Node.js | 20+ para proyectos Next.js |
 | Proyecto base | Next.js + shadcn/ui + Tailwind v4 |
+
+**La skill funciona con o sin Firecrawl** — si no está, usa WebFetch automáticamente.
 
 ## 🤝 Contributing
 

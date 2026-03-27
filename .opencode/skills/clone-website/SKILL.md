@@ -29,50 +29,130 @@ allowed-tools:
 
 ## Prerequisites
 
-### Required: Firecrawl (Primary)
+### Available Extraction Tools (in priority order)
 
-**Firecrawl** is the recommended extraction tool. It provides:
-- HTML content extraction
-- CSS extraction
-- Image/assets discovery
-- JavaScript rendering
-- `/interact` mode for clicking, scrolling, interacting
+#### 1. WebFetch (Free - Default)
+
+**OpenCode's built-in tool** — no installation needed, works out of the box.
+
+```bash
+# Use webfetch to get HTML
+webfetch(url="https://example.com", format="markdown")
+```
+
+- ✅ Works immediately, no setup
+- ⚠️ Limited to static HTML (no JS rendering)
+- Best for: Simple sites, fallback option
+
+#### 2. Simplerasp.io (Free tier - No auth for basic)
+
+Free web scraper with generous free tier.
+
+**Usage:**
+```bash
+# Via their web interface: https://simplescraper.io/
+# Or API with free key
+```
+
+- ✅ No authentication for basic use
+- ✅ Good for static pages
+- Best for: Quick extraction without setup
+
+#### 3. Apify (Free tier)
+
+Has free text scraper actors.
+
+**Usage:**
+```bash
+npx apify run karamelo/text-scraper-free
+```
+
+- ✅ Free tier available
+- ⚠️ Requires Apify account
+- Best for: When you need more than basic scraping
+
+#### 4. Firecrawl (Preferred - Requires API key)
+
+Best extraction tool but requires authentication.
 
 **Installation:**
 ```bash
 npm install -g firecrawl-cli
-# or use the MCP server
 ```
 
-**Usage in skill:**
+**Setup before using:**
+```bash
+# Option 1: Login interactively
+npx firecrawl login
+
+# Option 2: Set API key
+export FIRECRAWL_API_KEY="your-key-here"
+# or
+npx firecrawl config set-api-key YOUR_API_KEY
 ```
-Use Firecrawl to extract the page:
+
+**Usage:**
+```bash
 npx firecrawl https://example.com
-# or with interact mode
-npx firecrawl interact https://example.com
+npx firecrawl interact https://example.com  # For interaction
 ```
 
-### Optional: Browserbase (Advanced)
+- ✅ Best quality extraction
+- ✅ CSS, JS rendering, assets
+- ⚠️ Requires free API key (get at https://firecrawl.dev)
+- Best for: Complex sites, full extraction
 
-For screenshots and full browser interaction when Firecrawl isn't enough:
-- Real browser in the cloud
-- Screenshots at any viewport
-- Full JS interaction (clicks, scrolls, hovers)
+#### 5. Browserbase (Advanced - Paid)
 
-**Install:** https://www.browserbase.com/
+For screenshots and full browser automation.
 
-### Fallback: WebFetch
+- ✅ Real browser, screenshots, full JS
+- ⚠️ Requires account and payment
+- Best for: When you need visual verification
 
-If no external tools available, use OpenCode's `webfetch` to get the HTML and extract what you can manually.
+### Tool Selection Flow
+
+```
+1. Start with WebFetch (always works)
+   ↓ If not enough
+2. Try Simplerasp.io or Apify (free, minimal setup)
+   ↓ If still not enough
+3. Configure Firecrawl with API key (best quality)
+   ↓ If need screenshots
+4. Use Browserbase (paid, advanced)
+```
+
+**IMPORTANT:** Before starting a clone:
+- If you have Firecrawl API key → Use it for best results
+- If not → Start with WebFetch, it's built-in
+- Don't block the user waiting for setup — start with what works
+
+### Check Firecrawl Availability
+
+At start of clone, check if Firecrawl is configured:
+
+```bash
+npx firecrawl --version
+npx firecrawl test  # Will prompt for auth if not configured
+```
+
+If not available → Use WebFetch and inform user:
+"Firecrawl not configured. Using WebFetch for basic extraction. For full results, set FIRECRAWL_API_KEY."
 
 ## Pre-Flight
 
 1. Read `TARGET.md` for URL and scope. If URL doesn't match, update it.
-2. Verify project exists:
+2. Check available extraction tools:
+   - Run `firecrawl --version` to check if Firecrawl is configured
+   - If not, WebFetch is always available (built into OpenCode)
+3. **Inform user** about available tools:
+   - If Firecrawl available: "Using Firecrawl for best extraction"
+   - If not: "Firecrawl not configured. Using WebFetch. For full results, set FIRECRAWL_API_KEY"
+4. Verify project exists:
    - If `package.json` doesn't exist, prompt user to initialize a Next.js + shadcn/ui + Tailwind v4 project first
    - If exists but doesn't build (`npm run build` fails), fix or prompt user
-3. Create directories: `docs/research/`, `docs/research/components/`, `docs/design-references/`, `scripts/`.
-4. **Clean up template files**: If copying from any template that includes CLAUDE.md, delete it — OpenCode uses AGENTS.md, not CLAUDE.md.
+5. Create directories: `docs/research/`, `docs/research/components/`, `docs/design-references/`, `scripts/`.
+6. **Clean up template files**: If copying from any template that includes CLAUDE.md, delete it — OpenCode uses AGENTS.md, not CLAUDE.md.
 
 ### Template Cleanup
 
@@ -124,11 +204,26 @@ Verify `npx tsc --noEmit` passes before finishing. After merges, verify `npm run
 
 ## Phase 1: Reconnaissance
 
+### Available Tools Check
+
+At the start, determine which extraction tool is available:
+
+```bash
+# Check what's available
+which firecrawl || echo "Firecrawl not found"
+firecrawl --version 2>/dev/null || echo "Firecrawl not configured"
+```
+
+Use the best available tool according to the priority order in Prerequisites section.
+
 ### Screenshots
 
-Use Browserbase or take screenshots via Firecrawl's `/interact`:
-- Desktop (1440px) and mobile (390px) viewports
-- Save to `docs/design-references/`
+Use whatever is available:
+- Browserbase (if configured)
+- Firecrawl with /interact mode
+- WebFetch (for HTML only, no screenshots)
+
+Save screenshots to `docs/design-references/`
 
 ### Global Extraction
 
@@ -141,6 +236,32 @@ Extract from the page:
 **Favicons & Meta** — Download favicons, OG images to `public/seo/`.
 
 **Global UI patterns** — Custom scrollbar, scroll-snap, animations, smooth scroll libs.
+
+### Extract Images and Videos
+
+**Critical for a complete clone:**
+
+1. **Find all images:**
+   - From HTML: `<img src="...">`, `<picture>`, `srcset`
+   - From CSS: `background-image`, `background`
+   - From HTML: `<video>`, `<source>`, `<iframe>`
+
+2. **Download to local:**
+   ```bash
+   # Create directory for assets
+   mkdir -p public/images public/videos public/seo
+
+   # Download each image/video found
+   curl -L "IMAGE_URL" -o "public/images/FILENAME"
+   # or use wget
+   wget -P public/images "IMAGE_URL"
+   ```
+
+3. **Preserve original filenames** when possible, or use meaningful names (e.g., `hero-background.webp`, `footer-logo.png`)
+
+4. **Track all downloaded assets** in a list to reference in component specs
+
+**Note:** Without Firecrawl/Browserbase, you won't get screenshots — focus on extracting the HTML structure and downloading all visible assets manually via URLs found in the HTML.
 
 ### Interaction Sweep
 
