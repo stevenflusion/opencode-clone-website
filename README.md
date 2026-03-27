@@ -62,4 +62,4 @@ MIT - Feel free to use and modify!
 
 ---
 
-⭐ Si te fue útil,考虑一下 dar una estrella al repo original de JCodesMore: [ai-website-cloner-template](https://github.com/JCodesMore/ai-website-cloner-template)
+⭐ Si te fue útil, regalame una estrella y dar una estrella al repo original de JCodesMore: [ai-website-cloner-template](https://github.com/JCodesMore/ai-website-cloner-template)
