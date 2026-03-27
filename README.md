@@ -37,9 +37,17 @@ Tiene scrapers de texto gratuitos.
 
 ### 4. Firecrawl (Mejor calidad - Requiere API key)
 
-La mejor herramienta de extracción pero requiere autenticación.
+La mejor herramienta de extracción pero requiere crear una cuenta y configurar tu API key.
 
-**Instalación:**
+**1. Crear cuenta:**
+👉 https://www.firecrawl.dev/signin?utm_source=firecrawl_docs&utm_medium=nav_bar&utm_content=sign_up
+
+**2. Obtener tu API key:**
+- Iniciá sesión en Firecrawl
+- Vas a Settings → API Keys
+- Copiá tu API key (comienza con `fc-`)
+
+**3. Instalación:**
 ```bash
 # npm
 npm install -g firecrawl-cli
@@ -49,14 +57,10 @@ bun add -g firecrawl-cli
 pnpm add -g firecrawl-cli
 ```
 
-**Configuración:**
+**4. Configurar tu API key:**
 ```bash
-# Opción 1: Login interactivo
-npx firecrawl login
-
-# Opción 2: Configurar API key
-npx firecrawl config set-api-key TU_API_KEY
-# Obtén tu free key en: https://firecrawl.dev
+npx firecrawl login --api-key fc-TU-API-KEY
+# Reemplaza "fc-TU-API-KEY" con tu API key real
 ```
 
 **Verificar:**
