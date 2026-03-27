@@ -68,8 +68,17 @@ If no external tools available, use OpenCode's `webfetch` to get the HTML and ex
 ## Pre-Flight
 
 1. Read `TARGET.md` for URL and scope. If URL doesn't match, update it.
-2. Verify project builds: `npm run build`. If not, tell user to set up Next.js + shadcn/ui + Tailwind v4 first.
+2. Verify project exists:
+   - If `package.json` doesn't exist, prompt user to initialize a Next.js + shadcn/ui + Tailwind v4 project first
+   - If exists but doesn't build (`npm run build` fails), fix or prompt user
 3. Create directories: `docs/research/`, `docs/research/components/`, `docs/design-references/`, `scripts/`.
+4. **Clean up template files**: If copying from any template that includes CLAUDE.md, delete it — OpenCode uses AGENTS.md, not CLAUDE.md.
+
+### Template Cleanup
+
+When initializing or copying template files:
+- ✅ Keep: `AGENTS.md`, `README.md`, `package.json`, `next.config.ts`, etc.
+- ❌ Delete: `CLAUDE.md` (OpenCode doesn't use it)
 
 ## Guiding Principles
 
