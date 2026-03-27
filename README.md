@@ -63,11 +63,6 @@ npx firecrawl login --api-key fc-TU-API-KEY
 # Reemplaza "fc-TU-API-KEY" con tu API key real
 ```
 
-**Verificar:**
-```bash
-firecrawl --version
-```
-
 **Incluye:**
 - Extracción de HTML y CSS
 - Descubrimiento de assets/imágenes

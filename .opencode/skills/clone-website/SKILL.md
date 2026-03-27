@@ -6,7 +6,7 @@ description: >
 license: Apache-2.0
 metadata:
   author: gentleman-programming
-  version: "1.1"
+  version: "1.2"
 allowed-tools:
   - webfetch
   - websearch
@@ -18,6 +18,7 @@ allowed-tools:
   - bash
   - delegate
   - task
+  - chrome-devtools
 ---
 
 ## When to Use
@@ -27,130 +28,237 @@ allowed-tools:
 - Reverse-engineer a design
 - Create a pixel-perfect copy of a webpage
 
-## Prerequisites
+---
 
-### Available Extraction Tools (in priority order)
+## 🔧 Installation Guide
 
-#### 1. WebFetch (Free - Default)
+### Priority Order (Best → Fallback)
 
-**OpenCode's built-in tool** — no installation needed, works out of the box.
-
-```bash
-# Use webfetch to get HTML
-webfetch(url="https://example.com", format="markdown")
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│  1. CHROME DEVTOOLS MCP   ←── RECOMENDADO (oficial de Google)     │
+│  2. Firecrawl                                                      │
+│  3. Browserbase                                                    │
+│  4. Apify                                                          │
+│  5. Simplerasp                                                     │
+│  6. WebFetch           ←── fallback (siempre disponible)          │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
-- ✅ Works immediately, no setup
-- ⚠️ Limited to static HTML (no JS rendering)
-- Best for: Simple sites, fallback option
+---
 
-#### 2. Simplerasp.io (Free tier - No auth for basic)
+### 1️⃣ Chrome DevTools MCP ⭐ (Recommended)
 
-Free web scraper with generous free tier.
+**El más nuevo y potente** — oficial de Google, 31k+ estrellas en GitHub.
 
-**Usage:**
+**Instalación:**
+
 ```bash
-# Via their web interface: https://simplescraper.io/
-# Or API with free key
+# Instalar el paquete (OFICIAL de Google)
+npm install -g chrome-devtools-mcp
 ```
 
-- ✅ No authentication for basic use
-- ✅ Good for static pages
-- Best for: Quick extraction without setup
+**Configuración en OpenCode:**
 
-#### 3. Apify (Free tier)
+Agregar a tu `mcpServers` en settings:
 
-Has free text scraper actors.
-
-**Usage:**
-```bash
-npx apify run karamelo/text-scraper-free
+```json
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["chrome-devtools-mcp"]
+    }
+  }
+}
 ```
 
-- ✅ Free tier available
-- ⚠️ Requires Apify account
-- Best for: When you need more than basic scraping
+**Verificar:**
+```bash
+npx chrome-devtools-mcp --version
+```
 
-#### 4. Firecrawl (Preferred - Requires API key)
+**Capacidades:**
+- ✅ Screenshot completo de páginas
+- ✅ Extracción de DOM completo
+- ✅ Console logs, network, performance
+- ✅ Interacción con la página (click, scroll, etc.)
+- ✅ Mejor que Firecrawl para sitios complejos
 
-Best extraction tool but requires creating an account and configuring your API key.
+**🎯 Best for:** Todo — es el reemplazo oficial de Google para automatización de browser
 
-**1. Create account:**
-👉 https://www.firecrawl.dev/signin?utm_source=firecrawl_docs&utm_medium=nav_bar&utm_content=sign_up
+---
 
-**2. Get your API key:**
-- Login to Firecrawl
-- Go to Settings → API Keys
-- Copy your API key (starts with `fc-`)
+### 2️⃣ Firecrawl
 
-**Installation:**
+**Potente pero requiere API key.**
+
+**1. Crear cuenta:**
+👉 https://www.firecrawl.dev/signin
+
+**2. Obtener API key:**
+- Settings → API Keys
+- Copiar key (comienza con `fc-`)
+
+**Instalación:**
 ```bash
 npm install -g firecrawl-cli
 ```
 
-**Setup your API key:**
+**Configurar:**
 ```bash
-npx firecrawl login --api-key fc-YOUR-API-KEY
-# Replace "fc-YOUR-API-KEY" with your actual API key
+npx firecrawl login --api-key fc-TU-API-KEY
 ```
 
-**Usage:**
-```bash
-npx firecrawl https://example.com
-npx firecrawl interact https://example.com  # For interaction
-```
-
-- ✅ Best quality extraction
-- ✅ CSS, JS rendering, assets
-- ⚠️ Requires free API key
-- Best for: Complex sites, full extraction
-
-#### 5. Browserbase (Advanced - Paid)
-
-For screenshots and full browser automation.
-
-- ✅ Real browser, screenshots, full JS
-- ⚠️ Requires account and payment
-- Best for: When you need visual verification
-
-### Tool Selection Flow
-
-```
-1. Start with WebFetch (always works)
-   ↓ If not enough
-2. Try Simplerasp.io or Apify (free, minimal setup)
-   ↓ If still not enough
-3. Configure Firecrawl with API key (best quality)
-   ↓ If need screenshots
-4. Use Browserbase (paid, advanced)
-```
-
-**IMPORTANT:** Before starting a clone:
-- If you have Firecrawl API key → Use it for best results
-- If not → Start with WebFetch, it's built-in
-- Don't block the user waiting for setup — start with what works
-
-### Check Firecrawl Availability
-
-At start of clone, check if Firecrawl is configured:
-
+**Verificar:**
 ```bash
 npx firecrawl --version
-npx firecrawl test  # Will prompt for auth if not configured
 ```
 
-If not available → Use WebFetch and inform user:
-"Firecrawl not configured. Using WebFetch for basic extraction. For full results, set FIRECRAWL_API_KEY."
+**Uso:**
+```bash
+npx firecrawl https://example.com
+npx firecrawl interact https://example.com  # Con interacción
+```
+
+- ✅ Excelente calidad de extracción
+- ✅ CSS, JS, assets
+- ⚠️ Requiere cuenta gratuita
+- Best for: Fallback cuando no hay Chrome DevTools MCP
+
+---
+
+### 3️⃣ Browserbase
+
+**Automación de browser avanzada.**
+
+**1. Crear cuenta:**
+👉 https://browserbase.com
+
+**2. Obtener API key:**
+- Project Settings → API Keys
+
+**Instalación:**
+```bash
+npm install -g @browserbase/cli
+```
+
+**Configurar:**
+```bash
+export BROWSERBASE_API_KEY="bb-TU-API-KEY"
+```
+
+**Verificar:**
+```bash
+npx browserbase --version
+```
+
+- ✅ Browser real, screenshots, JS completo
+- ⚠️ Requiere cuenta (tier gratuito disponible)
+- Best for: Cuando necesitas screenshots avanzados
+
+---
+
+### 4️⃣ Apify
+
+**Plataforma de web scraping.**
+
+**1. Crear cuenta:**
+👉 https://apify.com
+
+**2. Obtener token:**
+- Settings → Personal Access Tokens
+
+**Instalación:**
+```bash
+npm install -g apify-cli
+apify auth
+```
+
+**Verificar:**
+```bash
+apify --version
+```
+
+- ✅ Gratis para开始
+- ⚠️ Requiere cuenta
+- Best for: Cuando necesitas actors específicos
+
+---
+
+### 5️⃣ Simplerasp.io
+
+**Scraper simple y gratuito.**
+
+**1. Usar directamente:**
+👉 https://simplescraper.io
+
+- ✅ Sin registro para básico
+- ⚠️ Limitado
+- Best for: Extracción rápida sin setup
+
+---
+
+### 6️⃣ WebFetch (Fallback)
+
+**Tool incorporado de OpenCode — siempre funciona.**
+
+```bash
+webfetch(url="https://example.com", format="markdown")
+```
+
+- ✅ No requiere setup
+- ⚠️ Solo HTML estático
+- Best for: Siempre funciona como fallback
+
+---
+
+## 🔄 Auto-Detection Flow
+
+Al iniciar un clone, el agente detecta automáticamente qué herramienta está disponible:
+
+```bash
+# Prioridad de detección
+1. Chrome DevTools MCP → si está configurado en OpenCode, USARLO
+2. Firecrawl CLI → npx firecrawl --version
+3. Browserbase CLI → npx browserbase --version  
+4. Apify CLI → apify --version
+5. Simplerasp → verificar si existe en PATH
+6. WebFetch → SIEMPRE disponible como fallback
+```
+
+**Mensaje al usuario según disponibilidad:**
+
+| Disponible | Mensaje |
+|------------|---------|
+| Chrome DevTools MCP | "🤖 Usando Chrome DevTools MCP (Google) — mejor calidad" |
+| Firecrawl | "🔥 Usando Firecrawl para extracción completa" |
+| Browserbase | "🌐 Usando Browserbase para browser automation" |
+| Apify | "⚡ Usando Apify para scraping" |
+| Solo WebFetch | "📄 Usando WebFetch (fallback). Para mejor resultado, instala Chrome DevTools MCP o configura Firecrawl." |
+
+**Regla de oro:** No bloquees al usuario esperando setup — inicia con lo que esté disponible y sugiere mejoras.
 
 ## Pre-Flight
 
 1. Read `TARGET.md` for URL and scope. If URL doesn't match, update it.
-2. Check available extraction tools:
-   - Run `firecrawl --version` to check if Firecrawl is configured
-   - If not, WebFetch is always available (built into OpenCode)
-3. **Inform user** about available tools:
-   - If Firecrawl available: "Using Firecrawl for best extraction"
-   - If not: "Firecrawl not configured. Using WebFetch. For full results, set FIRECRAWL_API_KEY"
+2. **Check available extraction tools** (en orden de prioridad):
+   ```bash
+   # 1. Chrome DevTools MCP - verificar en config de OpenCode
+   # (si está en mcpServers, USARLO)
+   
+   # 2. Firecrawl
+   npx firecrawl --version 2>/dev/null || echo "Firecrawl not found"
+   
+   # 3. Browserbase
+   npx browserbase --version 2>/dev/null || echo "Browserbase not found"
+   
+   # 4. Apify
+   apify --version 2>/dev/null || echo "Apify not found"
+   
+   # 5. WebFetch - SIEMPRE disponible (fallback)
+   ```
+3. **Inform user** about available tools (ver tabla en sección anterior)
 4. Verify project exists:
    - If `package.json` doesn't exist, prompt user to initialize a Next.js + shadcn/ui + Tailwind v4 project first
    - If exists but doesn't build (`npm run build` fails), fix or prompt user
@@ -209,24 +317,25 @@ Verify `npx tsc --noEmit` passes before finishing. After merges, verify `npm run
 
 ### Available Tools Check
 
-At the start, determine which extraction tool is available:
+**Orden de prioridad para screenshots y extracción:**
 
-```bash
-# Check what's available
-which firecrawl || echo "Firecrawl not found"
-firecrawl --version 2>/dev/null || echo "Firecrawl not configured"
-```
-
-Use the best available tool according to the priority order in Prerequisites section.
+| Prioridad | Herramienta | Screenshots | Extracción | Setup |
+|-----------|-------------|-------------|------------|-------|
+| 1 | Chrome DevTools MCP | ✅ Excelente | ✅ Completo | Required |
+| 2 | Firecrawl | ✅ Bueno | ✅ Completo | API Key |
+| 3 | Browserbase | ✅ Excelente | ✅ Completo | Cuenta |
+| 4 | Apify | ⚠️ Básico | ✅ Bueno | Cuenta |
+| 5 | Simplerasp | ❌ No | ✅ Básico | No |
+| 6 | WebFetch | ❌ No | ⚠️ HTML estático | No (siempre) |
 
 ### Screenshots
 
-Use whatever is available:
-- Browserbase (if configured)
-- Firecrawl with /interact mode
-- WebFetch (for HTML only, no screenshots)
+**Usar en este orden:**
+1. **Chrome DevTools MCP** — screenshot completo de página, DOM, console, network
+2. **Browserbase** — screenshots avanzados si está configurado
+3. **Firecrawl interact** — para extracción con interacción
 
-Save screenshots to `docs/design-references/`
+Guardar screenshots en `docs/design-references/`
 
 ### Global Extraction
 
@@ -264,7 +373,7 @@ Extract from the page:
 
 4. **Track all downloaded assets** in a list to reference in component specs
 
-**Note:** Without Firecrawl/Browserbase, you won't get screenshots — focus on extracting the HTML structure and downloading all visible assets manually via URLs found in the HTML.
+**Note:** Sin Chrome DevTools MCP, Firecrawl o Browserbase no hay screenshots — enfocate en extraer la estructura HTML y descargar assets manualmente.
 
 ### Interaction Sweep
 
