@@ -20,7 +20,7 @@ Gracias a **JCodesMore** por compartir su template y demostrar cómo la IA puede
 
 ```batch
 git clone https://github.com/stevenflusion/opencode-clone-website.git
-cd opencode-skills
+cd opencode-clone-website
 install.bat
 ```
 
@@ -28,7 +28,7 @@ install.bat
 
 ```bash
 git clone https://github.com/stevenflusion/opencode-clone-website.git
-cd opencode-skills
+cd opencode-clone-website
 chmod +x install.sh
 ./install.sh
 ```
