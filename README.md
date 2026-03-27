@@ -19,7 +19,7 @@ Gracias a **JCodesMore** por compartir su template y demostrar cómo la IA puede
 ### Windows
 
 ```batch
-git clone https://github.com/tu-usuario/opencode-skills.git
+git clone https://github.com/stevenflusion/opencode-clone-website.git
 cd opencode-skills
 install.bat
 ```
@@ -27,7 +27,7 @@ install.bat
 ### macOS / Linux
 
 ```bash
-git clone https://github.com/tu-usuario/opencode-skills.git
+git clone https://github.com/stevenflusion/opencode-clone-website.git
 cd opencode-skills
 chmod +x install.sh
 ./install.sh
@@ -37,7 +37,7 @@ chmod +x install.sh
 
 Una vez instalada la skill `clone-website`, simplemente describí lo que necesitás:
 
-- `"Clone este sitio: https://ejemplo.com"`
+- `"Clone este sitio: https://github.com/stevenflusion/opencode-clone-website.git"`
 - `"Quiero hacer un clone de esta página"`
 - `"Reverse-engineer esta web"`
 
