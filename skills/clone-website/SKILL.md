@@ -73,22 +73,25 @@ npx apify run karamelo/text-scraper-free
 
 #### 4. Firecrawl (Preferred - Requires API key)
 
-Best extraction tool but requires authentication.
+Best extraction tool but requires creating an account and configuring your API key.
+
+**1. Create account:**
+👉 https://www.firecrawl.dev/signin?utm_source=firecrawl_docs&utm_medium=nav_bar&utm_content=sign_up
+
+**2. Get your API key:**
+- Login to Firecrawl
+- Go to Settings → API Keys
+- Copy your API key (starts with `fc-`)
 
 **Installation:**
 ```bash
 npm install -g firecrawl-cli
 ```
 
-**Setup before using:**
+**Setup your API key:**
 ```bash
-# Option 1: Login interactively
-npx firecrawl login
-
-# Option 2: Set API key
-export FIRECRAWL_API_KEY="your-key-here"
-# or
-npx firecrawl config set-api-key YOUR_API_KEY
+npx firecrawl login --api-key fc-YOUR-API-KEY
+# Replace "fc-YOUR-API-KEY" with your actual API key
 ```
 
 **Usage:**
@@ -99,7 +102,7 @@ npx firecrawl interact https://example.com  # For interaction
 
 - ✅ Best quality extraction
 - ✅ CSS, JS rendering, assets
-- ⚠️ Requires free API key (get at https://firecrawl.dev)
+- ⚠️ Requires free API key
 - Best for: Complex sites, full extraction
 
 #### 5. Browserbase (Advanced - Paid)
