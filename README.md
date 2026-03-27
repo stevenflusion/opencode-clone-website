@@ -1,20 +1,61 @@
-# 🎯 OpenCode Skills
+# 🎯 Clone Website Skill for OpenCode
 
 > Clona cualquier sitio web de forma pixel-perfect con OpenCode
 
-## Inspirado en JCodesMore
+## 🛠 Herramientas de Extracción
 
-Este proyecto fue inspirado y adaptado del trabajo de **[JCodesMore](https://github.com/JCodesMore)** y su increíble skill [`ai-website-cloner-template`](https://github.com/JCodesMore/ai-website-cloner-template) para Claude Code.
+Esta skill soporta **múltiples herramientas** para adaptarse a tus necesidades:
 
-Su trabajo original usa la arquitectura de Claude Code con Chrome MCP y git worktrees. Esta versión está **adaptada específicamente para OpenCode**, aprovechando su sistema de delegaciones y herramientas disponibles.
+### Firecrawl (Recomendado - Primario)
 
-## 🙏 Agradecimiento
+API de scraping con modo `/interact` para interacción avanzada.
 
-Gracias a **JCodesMore** por compartir su template y demostrar cómo la IA puede reverse-engineer sitios web de manera impresionante. Su trabajo fue la inspiración directa para crear esta versión para OpenCode.
+**Instalación:**
+```bash
+npm install -g firecrawl-cli
+```
+
+**Uso:**
+```bash
+npx firecrawl https://ejemplo.com
+npx firecrawl interact https://ejemplo.com  # Para interacción
+```
+
+**Incluye:**
+- Extracción de HTML y CSS
+- Descubrimiento de assets/imágenes
+- Renderizado de JavaScript
+- Modo interactivo para clicks/scrolls
+
+### Browserbase (Opcional - Avanzado)
+
+Browser cloud para screenshots reales y automatización completa.
+
+- Browser real en la nube
+- Screenshots a cualquier viewport
+- Interacción JS completa (clicks, scrolls, hovers)
+
+**Web:** https://www.browserbase.com/
+
+### Fallback: WebFetch
+
+Si no tenés herramientas externas, usá el `webfetch` de OpenCode para obtener HTML básico.
 
 ---
 
-## ⚡ Instalación Rápida
+## Inspirado en JCodesMore
+
+Este proyecto fue inspirado y adaptado del trabajo de **[JCodesMore](https://github.com/JCodesMore)** y su skill [`ai-website-cloner-template`](https://github.com/JCodesMore/ai-website-cloner-template) para Claude Code.
+
+Su trabajo usa Chrome MCP. Esta versión está **adaptada para OpenCode** usando Firecrawl y Browserbase.
+
+## 🙏 Agradecimiento
+
+Gracias a **JCodesMore** por inspirar este proyecto.
+
+---
+
+## ⚡ Instalación
 
 ### Windows
 
@@ -35,7 +76,7 @@ chmod +x install.sh
 
 ## 🚀 Uso
 
-Una vez instalada la skill `clone-website`, simplemente describí lo que necesitás:
+Una vez instalada, simplemente describí lo que necesitás:
 
 - `"Clone este sitio: https://ejemplo.com"`
 - `"Quiero hacer un clone de esta página"`
@@ -46,20 +87,21 @@ Una vez instalada la skill `clone-website`, simplemente describí lo que necesit
 | Requisito | Descripción |
 |-----------|-------------|
 | OpenCode | Instalado y configurado |
-| Node.js | 20+ (para proyectos Next.js) |
-| Proyecto base | Next.js + shadcn/ui + Tailwind CSS v4 |
+| Firecrawl (recomendado) | `npm install -g firecrawl-cli` |
+| Node.js | 20+ para proyectos Next.js |
+| Proyecto base | Next.js + shadcn/ui + Tailwind v4 |
 
 ## 🤝 Contributing
 
 ¿Encontraste un bug? ¿Querés mejorar la skill?
-1. Hacé fork del repo
-2. Creá una rama con tus cambios
-3. Enviá un PR
+1. Fork del repo
+2. Rama con tus cambios
+3. PR
 
 ## 📝 Licencia
 
-MIT - Feel free to use and modify!
+MIT
 
 ---
 
-⭐ Si te fue útil, regalame una estrella y dar una estrella al repo original de JCodesMore: [ai-website-cloner-template](https://github.com/JCodesMore/ai-website-cloner-template)
+⭐ Si te fue útil,考虑 dar una estrella al repo de JCodesMore: [ai-website-cloner-template](https://github.com/JCodesMore/ai-website-cloner-template)
